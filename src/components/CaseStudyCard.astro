@@ -1,0 +1,38 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  category: string;
+  stat: string;
+  image?: string;
+}
+const { slug, title, category, stat, image } = Astro.props;
+---
+
+<a href={`/case-studies/${slug}`} class="card group flex flex-col overflow-hidden">
+  <div class="aspect-[4/3] overflow-hidden bg-mist">
+    {image ? (
+      <img
+        src={image}
+        alt={title}
+        class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
+    ) : (
+      <div class="flex h-full w-full items-center justify-center text-sm text-slate">
+        {category}
+      </div>
+    )}
+  </div>
+  <div class="flex flex-1 flex-col p-7">
+    <p class="eyebrow">{category}</p>
+    <h3 class="mt-2 text-lg font-semibold leading-snug text-navy">{title}</h3>
+    <p class="mt-3 text-sm font-medium text-blue">{stat}</p>
+    <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-navy">
+      View case study
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none" class="transition group-hover:translate-x-1">
+        <path d="M0 5H13M13 5L9 1M13 5L9 9" stroke="currentColor" stroke-width="1.4" />
+      </svg>
+    </span>
+  </div>
+</a>

@@ -1,0 +1,48 @@
+---
+interface Props {
+  heading?: string;
+}
+const { heading = "Brands & agencies I've worked with" } = Astro.props;
+
+const logos = [
+  { src: "/images/logos/clients/envision-horizons.png", alt: "Envision Horizons" },
+  { src: "/images/logos/clients/xp-strategy.png", alt: "XP Strategy" },
+  { src: "/images/logos/clients/umbrella-fund.png", alt: "Umbrella Fund" },
+  { src: "/images/logos/clients/us-polo.png", alt: "US Polo" },
+  { src: "/images/logos/clients/ultimate-footwear.png", alt: "Ultimate Footwear" },
+  { src: "/images/logos/clients/homespice.png", alt: "Homespice" },
+  { src: "/images/logos/clients/great-eagle.png", alt: "Great Eagle" },
+  { src: "/images/logos/clients/baby-proof-me.png", alt: "Baby Proof Me" },
+];
+---
+
+<section class="border-y border-line bg-mist/60 py-16">
+  <div class="container-page">
+    {heading && <p class="text-center text-base font-bold uppercase tracking-[0.14em] text-slate md:text-lg">{heading}</p>}
+    <div class="mt-10 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
+      <div class="flex w-max animate-scroll items-center gap-20">
+        {[...logos, ...logos].map((logo) => (
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            class="h-14 w-auto shrink-0 object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 md:h-16"
+            loading="lazy"
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-scroll {
+    animation: scroll 34s linear infinite;
+  }
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+</style>

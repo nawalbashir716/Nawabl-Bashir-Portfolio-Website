@@ -1,0 +1,40 @@
+---
+import Base from "../../layouts/Base.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import CTASection from "../../components/CTASection.astro";
+import { getCollection } from "astro:content";
+
+const caseStudies = (await getCollection("case-studies")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Case Studies"
+  description="Real advertising results across Amazon, Walmart, and TikTok Shop — from Amazon Marketing Cloud audience strategy to full account turnarounds."
+>
+  <section class="section">
+    <div class="container-page">
+      <p class="eyebrow text-center">Case studies</p>
+      <h1 class="mt-3 text-center text-4xl font-semibold tracking-tight text-navy md:text-5xl">
+        Real results from real brands
+      </h1>
+      <p class="mx-auto mt-5 max-w-xl text-center text-lg text-slate">
+        Eight accounts, eight different problems — from zero-review Q4 launches to
+        eight-figure catalogs across Amazon, Walmart, and TikTok Shop.
+      </p>
+
+      <div class="mt-14 grid gap-6 md:grid-cols-3">
+        {caseStudies.map((cs) => (
+          <CaseStudyCard
+            slug={cs.id}
+            title={cs.data.title}
+            category={cs.data.category}
+            stat={cs.data.stats[0]}
+            image={cs.data.images[0]}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection cta="audit" />
+</Base>

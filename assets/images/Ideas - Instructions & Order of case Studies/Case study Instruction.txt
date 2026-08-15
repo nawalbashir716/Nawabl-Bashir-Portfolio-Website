@@ -1,0 +1,7 @@
+The visuals should align with the overall theme and color scheme of the website.
+All content for each case study is organized within its respective tabs, along with a Drive link containing relevant images and screenshots. Ensure the layout feels clean and not cluttered—images should be placed thoughtfully to enhance readability, not overwhelm it.
+Follow this structure for each case study:
+Snapshot / Scorecards
+ Problem
+ Solution
+ Results

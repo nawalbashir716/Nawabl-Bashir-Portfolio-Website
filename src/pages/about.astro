@@ -1,0 +1,69 @@
+---
+import Base from "../layouts/Base.astro";
+import Testimonials from "../components/Testimonials.astro";
+import CTASection from "../components/CTASection.astro";
+import StatsRow from "../components/StatsRow.astro";
+---
+
+<Base
+  title="About"
+  description="How Nawal Bashir approaches retail media advertising — from agency floors to founder-led six-figure ad accounts."
+>
+  <section class="section pb-0">
+    <div class="container-page grid items-start gap-16 md:grid-cols-[1fr_1.3fr] md:gap-16">
+      <div class="relative mx-auto w-full max-w-sm md:sticky md:top-28 md:max-w-none">
+        <div class="overflow-hidden rounded-[1.75rem] bg-mist shadow-[0_30px_60px_-30px_rgba(15,42,92,0.35)]">
+          <img src="/images/personal/photo-2.jpg" alt="Nawal Bashir" class="aspect-[4/5] h-full w-full object-cover" />
+        </div>
+        <div class="absolute -bottom-6 -right-4 rounded-2xl border border-line bg-white px-6 py-4 text-center shadow-[0_20px_40px_-20px_rgba(15,42,92,0.35)] sm:-right-8">
+          <p class="font-display text-3xl font-semibold text-navy">5+</p>
+          <p class="text-xs font-medium uppercase tracking-wide text-slate">Years Experience</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium tracking-wide text-slate">
+          Amazon Advertising&nbsp;|&nbsp;Retail Media Strategy&nbsp;|&nbsp;Multi-Marketplace Growth
+        </p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight text-navy md:text-5xl">
+          The person running your account is the person you talk to.
+        </h1>
+
+        <div class="mt-8 space-y-6 text-lg leading-relaxed text-ink/85">
+          <p>
+            Nawal Bashir is a retail media strategist who has spent the last <strong>five years</strong> inside
+            the eCommerce advertising world — working hands-on inside agencies, with aggregators, and
+            alongside some of the most experienced operators in the Amazon ecosystem.
+          </p>
+          <p>
+            Since then, he has managed and scaled brands across multiple marketplaces — from building
+            brands from scratch to <strong>seven figures</strong>, to unlocking further growth for established{" "}
+            <strong>eight-figure brands</strong>.
+          </p>
+          <p>
+            His role has gone beyond campaign management. He has led advertising teams, built SOPs,
+            developed internal training systems, and streamlined operations for both brands and
+            agencies. The focus has always been the same: <strong>building systems that drive results</strong>,
+            not just managing bids.
+          </p>
+          <p>
+            Today, Nawal works directly with <strong>founders, CEOs, CMOs, and media teams</strong> — managing
+            six-figure monthly ad spend accounts, complex catalogs with thousands of SKUs, and brands
+            competing at the top of their category.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-page mt-16">
+    <StatsRow />
+  </section>
+
+  <Testimonials />
+  <CTASection
+    heading="Let's talk about your account"
+    body="If you're already spending on ads but not seeing the efficiency or scale you should be, that's where I come in."
+    cta="audit"
+  />
+</Base>

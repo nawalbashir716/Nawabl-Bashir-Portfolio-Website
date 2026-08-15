@@ -1,0 +1,25 @@
+---
+import ServiceIcon from "./ServiceIcon.astro";
+import { services } from "../data/services";
+---
+
+<section class="section bg-mist/50" id="services">
+  <div class="container-page">
+    <p class="eyebrow text-center">What I manage</p>
+    <h2 class="mt-3 text-center text-4xl font-semibold tracking-tight text-navy md:text-5xl">
+      Advertising Services Built for Scalable Growth
+    </h2>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((s) => (
+        <div class="card p-8">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-navy/5 text-navy">
+            <ServiceIcon name={s.icon as any} />
+          </div>
+          <h3 class="mt-5 text-lg font-semibold text-navy">{s.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate">{s.short}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

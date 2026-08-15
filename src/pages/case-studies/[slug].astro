@@ -1,0 +1,104 @@
+---
+import Base from "../../layouts/Base.astro";
+import CTASection from "../../components/CTASection.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection("case-studies");
+  return caseStudies.map((cs) => ({
+    params: { slug: cs.id },
+    props: { cs, all: caseStudies },
+  }));
+}
+
+const { cs, all } = Astro.props;
+const { title, category, stats, problem, solution, results, images } = cs.data;
+
+const sorted = [...all].sort((a, b) => a.data.order - b.data.order);
+const currentIndex = sorted.findIndex((c) => c.id === cs.id);
+const prev = sorted[currentIndex - 1];
+const next = sorted[currentIndex + 1];
+
+const toParagraphs = (text: string) =>
+  text
+    .trim()
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+---
+
+<Base title={title} description={cs.data.summary}>
+  <section class="section pb-10">
+    <div class="container-page max-w-3xl">
+      <a href="/case-studies" class="inline-flex items-center gap-1.5 text-sm font-medium text-slate hover:text-navy">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" class="rotate-180">
+          <path d="M0 5H13M13 5L9 1M13 5L9 9" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+        All case studies
+      </a>
+      <p class="eyebrow mt-6">{category}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-navy md:text-5xl">{title}</h1>
+      <p class="mt-4 text-lg leading-relaxed text-slate">{cs.data.summary}</p>
+    </div>
+  </section>
+
+  <section class="container-page max-w-3xl">
+    <div class="grid gap-4 sm:grid-cols-2">
+      {stats.map((stat: string) => (
+        <div class="rounded-2xl border border-line bg-mist/60 p-6">
+          <p class="text-xl font-semibold text-navy">{stat}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {images.length > 0 && (
+    <section class="container-page mt-14 max-w-3xl">
+      <div class="grid gap-4 sm:grid-cols-2">
+        {images.map((img: string) => (
+          <div class="overflow-hidden rounded-2xl bg-mist">
+            <img src={img} alt={title} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="container-page mt-16 max-w-3xl space-y-14">
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-blue">Problem</h2>
+      <div class="mt-4 space-y-4 text-lg leading-relaxed text-ink/85">
+        {toParagraphs(problem).map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-blue">Solution</h2>
+      <div class="mt-4 space-y-4 text-lg leading-relaxed text-ink/85">
+        {toParagraphs(solution).map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-blue">Results</h2>
+      <div class="mt-4 space-y-4 text-lg leading-relaxed text-ink/85">
+        {toParagraphs(results).map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="container-page mt-20 max-w-3xl border-t border-line pt-10">
+    <div class="flex flex-col justify-between gap-4 sm:flex-row">
+      {prev ? (
+        <a href={`/case-studies/${prev.id}`} class="text-sm font-medium text-slate hover:text-navy">
+          ← {prev.data.title}
+        </a>
+      ) : <span />}
+      {next && (
+        <a href={`/case-studies/${next.id}`} class="text-sm font-medium text-slate hover:text-navy">
+          {next.data.title} →
+        </a>
+      )}
+    </div>
+  </section>
+
+  <CTASection cta="audit" />
+</Base>

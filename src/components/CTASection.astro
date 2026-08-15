@@ -1,0 +1,28 @@
+---
+import CTAButton from "./CTAButton.astro";
+
+interface Props {
+  heading?: string;
+  body?: string;
+  cta?: "audit" | "touch";
+}
+const {
+  heading = "Ready to scale your advertising?",
+  body = "Get a free advertising audit and a clear picture of the growth sitting in your account right now.",
+  cta = "audit",
+} = Astro.props;
+
+const label = cta === "audit" ? "Get a Free Audit" : "Get in Touch";
+---
+
+<section class="section">
+  <div class="container-page">
+    <div class="rounded-[2rem] bg-navy px-8 py-16 text-center md:px-16 md:py-20">
+      <h2 class="text-3xl font-semibold tracking-tight text-white md:text-4xl">{heading}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-white/75">{body}</p>
+      <div class="mt-8 flex justify-center">
+        <CTAButton label={label} invert />
+      </div>
+    </div>
+  </div>
+</section>
