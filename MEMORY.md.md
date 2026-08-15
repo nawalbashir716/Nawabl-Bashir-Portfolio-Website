@@ -33,7 +33,17 @@ A working static site now exists in this folder: **Astro 7 + Tailwind v4**, stat
 
 **Performance fix (session 9)**: Nawal reported slow image loading on the live preview. Cause: `public/images/personal/` had 6 headshot originals at 11–12MB each (only `photo-2.jpg` was actually used, by About) plus a 1.8MB `hero.png` — 72MB total in that folder despite the site only referencing two of those files. Fixed: deleted the 5 unused originals, compressed `hero.png` → `hero.jpg` and re-compressed `photo-2.jpg` (both resized to max 1000px width, JPEG q82 via `sharp`, which Astro already had installed) — folder dropped to ~3MB, no visible quality loss at actual display size. Case study screenshots (100–350KB each) were left alone — not worth the risk of visibly degrading them for a smaller win.
 
-**Domain cutover — not done yet, deliberately.** nawalbashir.com is currently on **Google Workspace**, pointed at the old Webflow site, and Workspace almost certainly also serves email (hello@nawalbashir.com) via MX records on that same domain. Plan agreed with Nawal: (1) add nawalbashir.com as a Site/zone in Cloudflare, (2) carefully verify Cloudflare's DNS scan captured the MX/SPF/DKIM records correctly before changing anything, (3) update nameservers at the registrar to Cloudflare's (this is the actual cutover moment, propagation up to ~48h), (4) add nawalbashir.com as a custom domain on the Worker's Domains tab, (5) verify both the live site AND that email still works. **Do not rush this step or treat DNS/email records casually — breaking email is a real risk if MX records aren't preserved.**
+**Domain cutover — in progress.** nawalbashir.com's registrar is actually **Squarespace** (Google Domains migrated there; Google Workspace still manages email/MX on top of it). Steps 1–3 of the plan are done:
+1. ✅ Added nawalbashir.com as a Site/zone in Cloudflare (Free plan).
+2. ✅ Verified Cloudflare's DNS scan correctly imported the email-critical records: MX → smtp.google (Workspace mail), TXT google._domainkey (DKIM), TXT v=spf1 (SPF). Also present: apex A record (198.202.211.1) and CNAME www → cdn.webflow.com — both still pointing at Webflow, proxied on; a `_domainconnect` CNAME and `_webflow` TXT verification record (harmless leftovers, not email-related).
+3. ✅ Nameservers updated at Squarespace (Domains → Domain Nameservers) from the four `ns-cloud-bX.googledomains.com` to `mimi.ns.cloudflare.com` + `morgan.ns.cloudflare.com`, saved successfully — Squarespace confirmed "Nameservers updated" (2026-08-15, ~7:02 AM). Now propagating (up to 48h per Squarespace, but typically much faster) — waiting for the Cloudflare zone to show "Active" / Cloudflare's confirmation email before proceeding.
+
+**Still to do once Active:**
+4. Add nawalbashir.com as a **custom domain** on the Worker's Domains tab (this is where the existing Webflow-pointing A record / CNAME www will need to be replaced with records pointing at the Worker — hasn't been done yet, will need care since there are existing conflicting records).
+5. Verify the live domain loads the new site AND send a test email to hello@nawalbashir.com to confirm mail still works.
+6. (Later, optional cleanup) Disconnect nawalbashir.com from the old Webflow project / consider canceling that Webflow plan once everything's confirmed stable — not urgent, doesn't block anything.
+
+Nothing changes on the live site during propagation — it keeps showing the current Webflow site until step 4 is deliberately done.
 - Service descriptions on `/services` and the homepage Services section were written by Claude to match Nawal's positioning — not yet reviewed line-by-line by him.
 
 ## Session 5 (2026-08-15) — design revision pass
