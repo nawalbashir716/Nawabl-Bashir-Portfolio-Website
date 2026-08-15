@@ -38,12 +38,12 @@ A working static site now exists in this folder: **Astro 7 + Tailwind v4**, stat
 2. ✅ Verified Cloudflare's DNS scan correctly imported the email-critical records: MX → smtp.google (Workspace mail), TXT google._domainkey (DKIM), TXT v=spf1 (SPF). Also present: apex A record (198.202.211.1) and CNAME www → cdn.webflow.com — both still pointing at Webflow, proxied on; a `_domainconnect` CNAME and `_webflow` TXT verification record (harmless leftovers, not email-related).
 3. ✅ Nameservers updated at Squarespace (Domains → Domain Nameservers) from the four `ns-cloud-bX.googledomains.com` to `mimi.ns.cloudflare.com` + `morgan.ns.cloudflare.com`, saved successfully — Squarespace confirmed "Nameservers updated" (2026-08-15, ~7:02 AM). Now propagating (up to 48h per Squarespace, but typically much faster) — waiting for the Cloudflare zone to show "Active" / Cloudflare's confirmation email before proceeding.
 
-**Still to do once Active:**
-4. Add nawalbashir.com as a **custom domain** on the Worker's Domains tab (this is where the existing Webflow-pointing A record / CNAME www will need to be replaced with records pointing at the Worker — hasn't been done yet, will need care since there are existing conflicting records).
-5. Verify the live domain loads the new site AND send a test email to hello@nawalbashir.com to confirm mail still works.
-6. (Later, optional cleanup) Disconnect nawalbashir.com from the old Webflow project / consider canceling that Webflow plan once everything's confirmed stable — not urgent, doesn't block anything.
+4. ✅ **Done** — added both `nawalbashir.com` and `www.nawalbashir.com` as custom domains on the Worker. Each hit the expected conflict ("already has externally managed DNS records") because the old Webflow A record (apex, 198.202.211.1) and CNAME (www → cdn.webflow.com) were still in the Cloudflare zone; deleted each one individually (leaving MX/TXT/`_domainconnect` untouched), then the custom domain add succeeded. Both now show under the Worker's Custom Domains and Routes, Environment: Production, Zone: nawalbashir.com.
+5. ✅ **Done** — verified live: both nawalbashir.com and www load the new site, contact form submits successfully (Web3Forms notification received at hello@nawalbashir.com, which also confirms MX/email survived the cutover), and Cloudflare's zone shows the green "Your domain is now protected by Cloudflare" state (no more pending-ownership banner).
 
-Nothing changes on the live site during propagation — it keeps showing the current Webflow site until step 4 is deliberately done.
+**🎉 Domain cutover is fully complete as of 2026-08-15.** nawalbashir.com is live on the new Astro/Cloudflare Workers site, replacing Webflow entirely, with email untouched. Nawal is downgrading the Webflow plan to Starter (free) since it's no longer needed for hosting/custom domain — confirmed safe since DNS no longer points there at all.
+
+**Nothing outstanding** from the original build/launch plan. Any future session should treat this as a **live production site** — coordinate before pushing changes (there's an auto-deploy pipeline: push to `main` on GitHub → Cloudflare Workers Build auto-builds and deploys to nawalbashir.com within a couple minutes, no manual approval step in between).
 - Service descriptions on `/services` and the homepage Services section were written by Claude to match Nawal's positioning — not yet reviewed line-by-line by him.
 
 ## Session 5 (2026-08-15) — design revision pass
