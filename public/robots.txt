@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nawalbashir.com/sitemap-index.xml
