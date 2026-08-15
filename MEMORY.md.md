@@ -24,7 +24,7 @@ A working static site now exists in this folder: **Astro 7 + Tailwind v4**, stat
 
 **Not done yet / stubbed (current as of session 7):**
 - Contact form: fully wired with a real Web3Forms access key (session 9), domain-restricted to nawalbashir.com — will only actually work once live on that domain, not on localhost.
-- No git repo / GitHub push / Cloudflare Pages connection yet — **now in progress**, see "Going live" section below.
+- Git repo initialized locally (session 9) — local identity set to "Nawal Bashir" / hello@nawalbashir.com, `.claude/` gitignored, initial commit made on `main` branch. **Pushed to GitHub**: https://github.com/nawalbashir716/Nawabl-Bashir-Portfolio-Website — `main` tracks `origin/main`. No Cloudflare Pages connection or domain DNS change yet.
 - Service descriptions on `/services` and the homepage Services section were written by Claude to match Nawal's positioning — not yet reviewed line-by-line by him.
 
 ## Session 5 (2026-08-15) — design revision pass
